@@ -1,5 +1,7 @@
 <?php
 
+// NIM: 252410102004
+
 namespace App\Http\Controllers;
 
 use App\Models\Project;
@@ -38,6 +40,9 @@ class ProjectController extends Controller
             'status' => ['required', 'in:open,in_progress,completed,cancelled'],
         ]);
 
+        $validated['title'] = trim(strip_tags($validated['title']));
+        $validated['description'] = trim(strip_tags($validated['description']));
+
         Project::create($validated);
 
         return redirect()
@@ -69,6 +74,9 @@ class ProjectController extends Controller
             'deadline' => ['required', 'date'],
             'status' => ['required', 'in:open,in_progress,completed,cancelled'],
         ]);
+
+        $validated['title'] = trim(strip_tags($validated['title']));
+        $validated['description'] = trim(strip_tags($validated['description']));
 
         $project->update($validated);
 

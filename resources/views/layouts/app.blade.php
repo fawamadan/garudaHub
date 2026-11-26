@@ -27,7 +27,18 @@
     <div class="container">
         <div class="topbar">
             <a href="{{ route('projects.index') }}">GarudaHub Projects</a>
-            <a href="{{ route('projects.create') }}" class="btn btn-primary">+ Tambah Proyek</a>
+            <div class="actions">
+                @auth
+                    <span>{{ auth()->user()->name }} ({{ auth()->user()->role }})</span>
+                    <a href="{{ route('projects.create') }}" class="btn btn-primary">+ Tambah Proyek</a>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn">Logout</button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+                @endauth
+            </div>
         </div>
 
         @if (session('success'))
